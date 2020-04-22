@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
 import {
   MdMoreHoriz,
   MdVisibility,
@@ -8,11 +9,18 @@ import {
 
 import { Container, MoreOptions, Badge } from './styles';
 
-export function OptionsDelivery() {
+import { detailsDeliveryRequest } from '~/store/modules/delivery/actions';
+
+export function OptionsDelivery({ deliveries }) {
+  const dispatch = useDispatch();
   const [visibility, setVisible] = useState(false);
+  const { id } = deliveries;
 
   function handleToogleVisible() {
     setVisible(!visibility);
+  }
+  function handleDetailsDelivery() {
+    dispatch(detailsDeliveryRequest(id));
   }
 
   return (
@@ -22,7 +30,7 @@ export function OptionsDelivery() {
       </Badge>
       <MoreOptions visibility={visibility}>
         <div>
-          <button type="button">
+          <button type="button" onClick={handleDetailsDelivery}>
             <MdVisibility size={16} color="#8E58E8" />
             <span>Visualizar</span>
           </button>

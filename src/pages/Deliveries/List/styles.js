@@ -87,3 +87,57 @@ export const ContentList = styled.table`
     }
   }
 `;
+export const FadeDelivery = styled.div`
+  position: absolute;
+  display: flex;
+  top: 0;
+  z-index: 1;
+  width: 100vmax;
+  height: 100vmax;
+  background: rgba(0, 0, 0, 0.7);
+  display: ${(props) => (props.visible ? 'flex' : 'none')} !important;
+  justify-content: center;
+`;
+export const DetailsDelivery = styled.div`
+  margin-top: 200px;
+  width: 500px;
+  height: 400px;
+  background: #fff;
+  border-radius: 5px;
+  display: flex;
+  padding: 20px;
+  justify-content: space-between;
+  flex-direction: column;
+
+  div {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+
+    & + div {
+      border-top: 0.5px solid #eee;
+      padding-top: 15px;
+    }
+    strong {
+      font-size: 16px;
+    }
+    span {
+      line-height: 20px;
+    }
+  }
+  p {
+    color: #333;
+    font-size: 15px;
+    span {
+      font-weight: bold;
+      color: #333;
+      margin-right: 10px;
+    }
+  }
+  img {
+    margin: 10px 0 0;
+    align-self: center;
+    height: 130px;
+    width: 360px;
+  }
+`;
