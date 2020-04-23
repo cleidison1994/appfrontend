@@ -23,11 +23,15 @@ export const ContentHeader = styled.div`
       justify-content: space-between;
       width: 110px;
       border: 0;
-      background: #7159c1;
+      background: #999;
       border-radius: 4px;
       margin-left: 20px;
       color: #fff;
       padding: 5px 10px;
+
+      & + button {
+        background: #7159c1;
+      }
     }
   }
 `;

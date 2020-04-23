@@ -6,9 +6,11 @@ import history from '~/services/history';
 
 import {
   loadDeliverySuccess,
-  loadNotFound,
+  failureDelivery,
   newDeliverySuccess,
   detailsDeliverySuccess,
+  deleteDeliveryRequest,
+  editDeliverySuccess,
 } from './actions';
 
 export function* loadDeliveries({ payload }) {
@@ -27,7 +29,7 @@ export function* loadDeliveries({ payload }) {
     yield put(loadDeliverySuccess(response.data));
   } catch (err) {
     toast.error('Falha na autenticação');
-    yield put(loadNotFound());
+    yield put(failureDelivery());
   }
 }
 export function* newAddDelivery({ payload }) {
@@ -36,6 +38,7 @@ export function* newAddDelivery({ payload }) {
 
     if (!(deliveryman_id || recipient_id, product || product)) {
       toast.error('Verifique os campos todos devem ser preenchidos');
+      yield put(failureDelivery());
       return;
     }
 
@@ -51,6 +54,7 @@ export function* newAddDelivery({ payload }) {
       history.push('/delivery');
     }
   } catch (error) {
+    yield put(failureDelivery());
     toast.error('Erro ao criar ecomenda verifique os dados');
   }
 }
@@ -66,7 +70,33 @@ export function* detailsDelivery({ payload }) {
     });
     yield put(detailsDeliverySuccess(response.data));
   } catch (error) {
-    toast.error(`Erro ao obter detalhes da encomenda ${error.message}`);
+    toast.error(`Erro ao obter detalhes da encomenda`);
+  }
+}
+
+export function* editDelivery({ payload }) {
+  try {
+    const { delivery } = payload;
+
+    yield put(editDeliverySuccess(delivery));
+  } catch (error) {
+    toast.error('Errro ao editar encomenda verifique!');
+  }
+}
+
+export function* deleteDelivery({ payload }) {
+  try {
+    const { delivery } = payload;
+    const response = yield call(api.delete, `delivery/${delivery}`);
+
+    if (response.data) {
+      yield put(deleteDeliveryRequest(delivery));
+      yield put(loadDeliverySuccess());
+    }
+  } catch (error) {
+    yield put(failureDelivery());
+    yield put(loadDeliverySuccess());
+    toast.error(`Erro ao remover encomenda !`);
   }
 }
 
@@ -74,4 +104,6 @@ export default all([
   takeLatest('@delivery/NEW_DELIVERY_REQUEST', newAddDelivery),
   takeLatest('@delivery/LOAD_REQUEST', loadDeliveries),
   takeLatest('@delivery/SET_DELIVERYID_REQUEST', detailsDelivery),
+  takeLatest('@delivery/DELETE_DELIVERY', deleteDelivery),
+  takeLatest('@delivery/EDIT_DELIVERY_REQUEST', editDelivery),
 ]);

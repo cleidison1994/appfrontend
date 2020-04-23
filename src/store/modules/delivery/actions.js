@@ -11,9 +11,9 @@ export function loadDeliverySuccess(delivery) {
     payload: { delivery },
   };
 }
-export function loadNotFound() {
+export function failureDelivery() {
   return {
-    type: '@delivery/LOAD_NOT_FOUND',
+    type: '@delivery/FAILURE_DELIVERY',
   };
 }
 
@@ -40,6 +40,25 @@ export function detailsDeliveryRequest(delivery_id) {
 export function detailsDeliverySuccess(delivery) {
   return {
     type: '@delivery/DETAILS_DELIVERY_SUCCESS',
+    payload: { delivery },
+  };
+}
+
+export function editDeliveryRequest(delivery) {
+  return {
+    type: '@delivery/EDIT_DELIVERY_REQUEST',
+    payload: { delivery },
+  };
+}
+export function editDeliverySuccess(delivery) {
+  return {
+    type: '@delivery/EDIT_DELIVERY_SUCCESS',
+    payload: { delivery },
+  };
+}
+export function deleteDeliveryRequest(delivery) {
+  return {
+    type: '@delivery/DELETE_DELIVERY',
     payload: { delivery },
   };
 }

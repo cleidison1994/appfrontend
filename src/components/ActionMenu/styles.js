@@ -41,11 +41,9 @@ export const MoreOptions = styled.div`
     padding: 10px 0;
     & + div {
       border-top: 1px solid #eee;
-      margin-top: 5px;
-      padding-top: 5px;
     }
 
-    > button {
+    button {
       border: 0;
       background: none;
       display: flex;

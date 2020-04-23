@@ -1,8 +1,21 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import { MdSearch, MdAdd } from 'react-icons/md';
+import history from '~/services/history';
 import { Container, Content, ContentHeader, ContentList } from './styles';
 
+import { OptionsDeliveryMan } from '~/components/ActionMenu';
+import { loadSearchDeliveryManRequest } from '~/store/modules/deliveryman/actions';
+
 export default function List() {
+  const deliverymanList = useSelector((state) => state.deliveryman.deliveryman);
+  const [textsearch, setTextSearch] = useState('');
+  const distpatch = useDispatch();
+
+  useEffect(() => {
+    distpatch(loadSearchDeliveryManRequest(textsearch));
+  }, [textsearch, distpatch]);
+
   return (
     <Container>
       <Content>
@@ -10,9 +23,15 @@ export default function List() {
         <ContentHeader>
           <form>
             <MdSearch size={25} color="#333" />
-            <input placeholder="Buscar por encomendas" />
+            <input
+              placeholder="Buscar por encomendas"
+              onChange={(e) => setTextSearch(e.target.value)}
+            />
           </form>
-          <button type="button">
+          <button
+            type="button"
+            onClick={() => history.push('/deliveryman-new')}
+          >
             <MdAdd size={20} color="#fff" />
             <span>CADASTRAR</span>
           </button>
@@ -21,34 +40,39 @@ export default function List() {
           <thead>
             <tr>
               <th>ID</th>
-              <th>PRODUTO</th>
-              <th>DESTINATÁRIO</th>
-              <th>ENTREGADOR</th>
-              <th>CIDADE</th>
-              <th>ESTADO</th>
-              <th>STATUS</th>
+              <th>FOTO</th>
+              <th>NOME</th>
+              <th>EMAIL</th>
               <th>AÇÕES</th>
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td>2</td>
-              <td>teste teste teste tese</td>
-              <td>
-                <div>
-                  <img
-                    src="https://api.adorable.io/avatars/50/abott@adorable.png"
-                    alt="imagem"
-                  />
-                  <span>Nome do entregador</span>
-                </div>
-              </td>
-              <td>teste</td>
-              <td>teste</td>
-              <td>teste</td>
-              <td>teste</td>
-              <td>teste</td>
-            </tr>
+            {deliverymanList ? (
+              deliverymanList.map((deliveryman) => (
+                <tr key={deliveryman.id}>
+                  <td>{deliveryman.id}</td>
+                  <td>
+                    <div>
+                      <img
+                        src={
+                          deliveryman.deliveryman_avatar
+                            ? deliveryman.deliveryman_avatar.url
+                            : 'https://api.adorable.io/avatars/50/abott@adorable.png'
+                        }
+                        alt={deliveryman.id}
+                      />
+                    </div>
+                  </td>
+                  <td>{deliveryman.name} </td>
+                  <td>{deliveryman.email} </td>
+                  <td>
+                    <OptionsDeliveryMan deliveryman={deliveryman} />
+                  </td>
+                </tr>
+              ))
+            ) : (
+              <span>Carregando...</span>
+            )}
           </tbody>
         </ContentList>
       </Content>

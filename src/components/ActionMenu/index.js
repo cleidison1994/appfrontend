@@ -1,15 +1,21 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
+import PropTypes from 'prop-types';
 import {
   MdMoreHoriz,
   MdVisibility,
   MdCreate,
   MdDeleteForever,
 } from 'react-icons/md';
+import history from '~/services/history';
 
 import { Container, MoreOptions, Badge } from './styles';
 
-import { detailsDeliveryRequest } from '~/store/modules/delivery/actions';
+import {
+  detailsDeliveryRequest,
+  editDeliveryRequest,
+  deleteDeliveryRequest,
+} from '~/store/modules/delivery/actions';
 
 export function OptionsDelivery({ deliveries }) {
   const dispatch = useDispatch();
@@ -21,6 +27,19 @@ export function OptionsDelivery({ deliveries }) {
   }
   function handleDetailsDelivery() {
     dispatch(detailsDeliveryRequest(id));
+  }
+  function handleEditDelivery() {
+    dispatch(editDeliveryRequest(id));
+    history.push('/delivery-edit');
+  }
+  function handleDeleteDelivery() {
+    const verify = window.confirm(
+      'Você realmente deseja cancelar esta encomenda?'
+    );
+    if (verify) {
+      dispatch(deleteDeliveryRequest(id));
+      history.push('/delivery');
+    }
   }
 
   return (
@@ -35,6 +54,36 @@ export function OptionsDelivery({ deliveries }) {
             <span>Visualizar</span>
           </button>
         </div>
+        <div>
+          <button type="button" onClick={handleEditDelivery}>
+            <MdCreate size={16} color="#4D85EE" />
+            <span>Editar</span>
+          </button>
+        </div>
+        <div>
+          <button type="button" onClick={handleDeleteDelivery}>
+            <MdDeleteForever size={16} color="#DE3B3B" />
+            <span>Excluir</span>
+          </button>
+        </div>
+      </MoreOptions>
+    </Container>
+  );
+}
+
+export function OptionsDeliveryMan({ deliveryman }) {
+  const [visibility, setVisible] = useState(false);
+  // const { id } = deliveryman;
+
+  function handleToogleVisible() {
+    setVisible(!visibility);
+  }
+  return (
+    <Container>
+      <Badge onClick={handleToogleVisible}>
+        <MdMoreHoriz color="#333" size={26} />
+      </Badge>
+      <MoreOptions visibility={visibility}>
         <div>
           <button type="button">
             <MdCreate size={16} color="#4D85EE" />
@@ -51,3 +100,14 @@ export function OptionsDelivery({ deliveries }) {
     </Container>
   );
 }
+
+OptionsDelivery.propTypes = {
+  deliveries: PropTypes.shape({
+    id: PropTypes.number,
+  }).isRequired,
+};
+OptionsDeliveryMan.propTypes = {
+  deliveryman: PropTypes.shape({
+    id: PropTypes.number,
+  }).isRequired,
+};

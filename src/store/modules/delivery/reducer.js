@@ -24,6 +24,10 @@ export default function delivery(state = INITIAL_STATE, action) {
         draft.loading = true;
         break;
       }
+      case '@delivery/FAILURE_DELIVERY': {
+        draft.loading = false;
+        break;
+      }
       case '@delivery/NEW_DELIVERY_SUCCESS': {
         draft.loading = false;
         break;
@@ -37,8 +41,22 @@ export default function delivery(state = INITIAL_STATE, action) {
         break;
       }
       case '@delivery/SET_DELIVERYID_REQUEST': {
-        draft.delivery_id = action.payload.delivery_id;
+        draft.delivery_id = action.payload.delivery;
         draft.fadebord = false;
+        break;
+      }
+      case '@delivery/EDIT_DELIVERY_REQUEST': {
+        draft.delivery_id = action.payload.delivery;
+        break;
+      }
+      case '@delivery/EDIT_DELIVERY_SUCCESS': {
+        draft.delivery = draft.deliveries.find(
+          (d) => d.id === draft.delivery_id
+        );
+        break;
+      }
+      case '@delivery/DELETE_DELIVERY': {
+        draft.delivery_id = null;
         break;
       }
       default:

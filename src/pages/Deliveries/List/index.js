@@ -78,49 +78,53 @@ export default function List() {
                 </tr>
               </thead>
               <tbody>
-                {deliveries.map((delivery) => (
-                  <tr key={delivery.id}>
-                    <td>{delivery.id}</td>
-                    <td>{delivery.product}</td>
-                    <td>{delivery.recipients.name}</td>
-                    <td>
-                      <div>
-                        <img
-                          src={
-                            delivery.deliveryman_avatar
-                              ? delivery.deliveryman_avatar.url
-                              : 'https://api.adorable.io/avatars/50/abott@adorable.png'
-                          }
-                          alt="imagem"
-                        />
-                        <span>{delivery.deliveryman.name}</span>
-                      </div>
-                    </td>
-                    <td>{delivery.recipients.city}</td>
-                    <td>{delivery.recipients.state}</td>
-                    <td>
-                      {delivery.start_date &&
-                      !delivery.canceled_at &&
-                      !delivery.end_date ? (
-                        <ActionStarted />
-                      ) : null}
-                      {!delivery.canceled_at &&
-                      delivery.end_date &&
-                      delivery.start_date ? (
-                        <ActionDelivered />
-                      ) : null}
-                      {!delivery.canceled_at &&
-                      !delivery.end_date &&
-                      !delivery.start_date ? (
-                        <ActionPending />
-                      ) : null}
-                      {delivery.canceled_at ? <ActionCanceled /> : null}
-                    </td>
-                    <td>
-                      <OptionsDelivery deliveries={delivery} />
-                    </td>
-                  </tr>
-                ))}
+                {deliveries ? (
+                  deliveries.map((delivery) => (
+                    <tr key={delivery.id}>
+                      <td>{delivery.id}</td>
+                      <td>{delivery.product}</td>
+                      <td>{delivery.recipients.name}</td>
+                      <td>
+                        <div>
+                          <img
+                            src={
+                              delivery.deliveryman.deliveryman_avatar
+                                ? delivery.deliveryman.deliveryman_avatar.url
+                                : 'https://api.adorable.io/avatars/50/abott@adorable.png'
+                            }
+                            alt="imagem"
+                          />
+                          <span>{delivery.deliveryman.name}</span>
+                        </div>
+                      </td>
+                      <td>{delivery.recipients.city}</td>
+                      <td>{delivery.recipients.state}</td>
+                      <td>
+                        {delivery.start_date &&
+                        !delivery.canceled_at &&
+                        !delivery.end_date ? (
+                          <ActionStarted />
+                        ) : null}
+                        {!delivery.canceled_at &&
+                        delivery.end_date &&
+                        delivery.start_date ? (
+                          <ActionDelivered />
+                        ) : null}
+                        {!delivery.canceled_at &&
+                        !delivery.end_date &&
+                        !delivery.start_date ? (
+                          <ActionPending />
+                        ) : null}
+                        {delivery.canceled_at ? <ActionCanceled /> : null}
+                      </td>
+                      <td>
+                        <OptionsDelivery deliveries={delivery} />
+                      </td>
+                    </tr>
+                  ))
+                ) : (
+                  <span>Nenhuma encomenda cadastrada!</span>
+                )}
               </tbody>
             </ContentList>
           )}
