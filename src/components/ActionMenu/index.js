@@ -8,7 +8,6 @@ import {
   MdDeleteForever,
 } from 'react-icons/md';
 import history from '~/services/history';
-
 import { Container, MoreOptions, Badge } from './styles';
 
 import {
@@ -16,6 +15,13 @@ import {
   editDeliveryRequest,
   deleteDeliveryRequest,
 } from '~/store/modules/delivery/actions';
+
+import {
+  loadEditDeliveryManRequest,
+  DeleteDeliveryManRequest,
+} from '~/store/modules/deliveryman/actions';
+
+import { loadeditRecipientrRequest } from '~/store/modules/recipient/actions';
 
 export function OptionsDelivery({ deliveries }) {
   const dispatch = useDispatch();
@@ -73,10 +79,24 @@ export function OptionsDelivery({ deliveries }) {
 
 export function OptionsDeliveryMan({ deliveryman }) {
   const [visibility, setVisible] = useState(false);
-  // const { id } = deliveryman;
+  const dispatch = useDispatch();
+  const { id } = deliveryman;
 
   function handleToogleVisible() {
     setVisible(!visibility);
+  }
+  function handleLoadEdit() {
+    dispatch(loadEditDeliveryManRequest(id));
+    history.push('/deliveryman-edit');
+  }
+  function handleDeleteDeliveryMan() {
+    const verify = window.confirm(
+      'Você realmente deseja cancelar este entregador?'
+    );
+    if (verify) {
+      dispatch(DeleteDeliveryManRequest(id));
+      history.push('/deliveryman');
+    }
   }
   return (
     <Container>
@@ -85,13 +105,55 @@ export function OptionsDeliveryMan({ deliveryman }) {
       </Badge>
       <MoreOptions visibility={visibility}>
         <div>
-          <button type="button">
+          <button type="button" onClick={handleLoadEdit}>
             <MdCreate size={16} color="#4D85EE" />
             <span>Editar</span>
           </button>
         </div>
         <div>
-          <button type="button">
+          <button type="button" onClick={handleDeleteDeliveryMan}>
+            <MdDeleteForever size={16} color="#DE3B3B" />
+            <span>Excluir</span>
+          </button>
+        </div>
+      </MoreOptions>
+    </Container>
+  );
+}
+
+export function OptionsRecipient({ recipient }) {
+  const [visibility, setVisible] = useState(false);
+  const dispatch = useDispatch();
+  const { id } = recipient;
+
+  function handleToogleVisible() {
+    setVisible(!visibility);
+  }
+  function handleLoadEdit() {
+    dispatch(loadeditRecipientrRequest(id));
+    history.push('/recipient-edit');
+  }
+  function handleDeleteDeliveryMan() {
+    const verify = window.confirm(
+      'Você realmente deseja deletar este endereço?'
+    );
+    if (verify) {
+    }
+  }
+  return (
+    <Container>
+      <Badge onClick={handleToogleVisible}>
+        <MdMoreHoriz color="#333" size={26} />
+      </Badge>
+      <MoreOptions visibility={visibility}>
+        <div>
+          <button type="button" onClick={handleLoadEdit}>
+            <MdCreate size={16} color="#4D85EE" />
+            <span>Editar</span>
+          </button>
+        </div>
+        <div>
+          <button type="button" onClick={handleDeleteDeliveryMan}>
             <MdDeleteForever size={16} color="#DE3B3B" />
             <span>Excluir</span>
           </button>
@@ -108,6 +170,12 @@ OptionsDelivery.propTypes = {
 };
 OptionsDeliveryMan.propTypes = {
   deliveryman: PropTypes.shape({
+    id: PropTypes.number,
+  }).isRequired,
+};
+
+OptionsRecipient.propTypes = {
+  recipient: PropTypes.shape({
     id: PropTypes.number,
   }).isRequired,
 };

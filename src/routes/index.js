@@ -37,13 +37,13 @@ export default function Routes() {
       <Route path="/delivery-new" component={DeliveryForm} Isprivate />
       <Route path="/delivery-edit" component={DeliveryEdit} Isprivate />
 
-      <Route path="/recipients" component={RecipientList} Isprivate />
-      <Route path="/recipients-new" component={RecipientForm} Isprivate />
-      <Route path="/recipients-edit" component={RecipientEdit} Isprivate />
+      <Route path="/recipient" component={RecipientList} Isprivate />
+      <Route path="/recipient-new" component={RecipientForm} Isprivate />
+      <Route path="/recipient-edit" component={RecipientEdit} Isprivate />
 
-      <Route path="/problems" component={ProblemList} Isprivate />
-      <Route path="/problems-new" component={ProblemForm} Isprivate />
-      <Route path="/problems-edit" component={ProblemEdit} Isprivate />
+      <Route path="/problem" component={ProblemList} Isprivate />
+      <Route path="/problem-new" component={ProblemForm} Isprivate />
+      <Route path="/problem-edit" component={ProblemEdit} Isprivate />
     </Switch>
   );
 }

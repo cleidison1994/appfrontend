@@ -1,37 +1,47 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import * as Yup from 'yup';
+
 import { MdDone, MdArrowForward } from 'react-icons/md';
-import { Input, Form } from '@rocketseat/unform';
-import { toast } from 'react-toastify';
+import { Form } from '@unform/web';
+import Input from '~/components/Input';
+import history from '~/services/history';
 import { addNewDeliveryManRequest } from '~/store/modules/deliveryman/actions';
 import Avatar from '../Avatar';
-import { Container, Content, ContentHeader, ContentForm } from './styles';
+import { Container, ContentHeader, ContentForm } from './styles';
+
+const schema = Yup.object().shape({
+  name: Yup.string().required('Nome é obrigatório'),
+  email: Yup.string().email().required('Email é obrigatório'),
+});
 
 export default function NewDeliveryManForm() {
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
+  const [namedeliveryman, setNameDelliveryMan] = useState('');
+  const [emaildeliveryman, setEmailDeliveryMan] = useState('');
   const dispatch = useDispatch();
+  const loading = useSelector((state) => state.deliveryman.loading);
+  const ref = useRef(null);
 
-  function handleAddDeliveryMan() {
-    const data = { name, email };
-
+  async function handleAddDeliveryMan({ name, email, avatar_id }) {
+    const data = { name, email, avatar_id };
     dispatch(addNewDeliveryManRequest(data));
   }
+
   return (
     <Container>
-      <Content>
+      <Form schema={schema} onSubmit={handleAddDeliveryMan} ref={ref}>
         <ContentHeader>
           <div>
             <span>Cadastro de entregadores</span>
           </div>
           <div>
-            <button type="button">
+            <button type="button" onClick={() => history.push('/deliveryman')}>
               <MdArrowForward size={20} color="#FFF" />
               <span>VOLTAR</span>
             </button>
-            <button type="submit" onClick={handleAddDeliveryMan}>
+            <button type="submit">
               <MdDone size={20} color="#FFF" />
-              <span>SALVAR</span>
+              {loading ? <span>SALVANDO...</span> : <span>SALVAR</span>}
             </button>
           </div>
         </ContentHeader>
@@ -39,24 +49,26 @@ export default function NewDeliveryManForm() {
           <div>
             <Avatar name="avatar_id" />
           </div>
-          <Form>
+          <div>
             <span>Nome</span>
             <Input
               name="name"
+              type="text"
               placeholder="Digite um nome"
-              value={name}
-              onChange={(e) => setName(e.target.value)}
+              value={namedeliveryman}
+              onChange={(e) => setNameDelliveryMan(e.target.value)}
             />
             <span>Email</span>
             <Input
               name="email"
+              type="email"
               placeholder="Digite um email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              value={emaildeliveryman}
+              onChange={(e) => setEmailDeliveryMan(e.target.value)}
             />
-          </Form>
+          </div>
         </ContentForm>
-      </Content>
+      </Form>
     </Container>
   );
 }

@@ -6,10 +6,11 @@ import history from '~/services/history';
 
 import {
   loadDeliverySuccess,
+  loadDeliveryRequest,
   failureDelivery,
   newDeliverySuccess,
   detailsDeliverySuccess,
-  deleteDeliveryRequest,
+  deleteDeliverySuccess,
   editDeliverySuccess,
 } from './actions';
 
@@ -90,8 +91,9 @@ export function* deleteDelivery({ payload }) {
     const response = yield call(api.delete, `delivery/${delivery}`);
 
     if (response.data) {
-      yield put(deleteDeliveryRequest(delivery));
-      yield put(loadDeliverySuccess());
+      yield put(deleteDeliverySuccess());
+      yield put(loadDeliveryRequest());
+      toast.success('Encomenda removida!');
     }
   } catch (error) {
     yield put(failureDelivery());
@@ -104,6 +106,6 @@ export default all([
   takeLatest('@delivery/NEW_DELIVERY_REQUEST', newAddDelivery),
   takeLatest('@delivery/LOAD_REQUEST', loadDeliveries),
   takeLatest('@delivery/SET_DELIVERYID_REQUEST', detailsDelivery),
-  takeLatest('@delivery/DELETE_DELIVERY', deleteDelivery),
+  takeLatest('@delivery/DELETE_DELIVERY_REQUEST', deleteDelivery),
   takeLatest('@delivery/EDIT_DELIVERY_REQUEST', editDelivery),
 ]);

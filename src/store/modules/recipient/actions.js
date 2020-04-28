@@ -1,0 +1,52 @@
+export function failureRecipient(message) {
+  return {
+    type: '@recipient/FAILURE_RECIPIENT',
+    payload: { message },
+  };
+}
+
+export function loadRecipientRequest(textsearch) {
+  return {
+    type: '@recipient/LOAD_RECIPIENT_REQUEST',
+    payload: { textsearch },
+  };
+}
+export function loadRecipientSuccess(recipients) {
+  return {
+    type: '@recipient/LOAD_RECIPIENT_SUCCESS',
+    payload: { recipients },
+  };
+}
+export function addNewRecipientRequest(recipient) {
+  return {
+    type: '@recipient/ADDNEW_RECIPIENT_REQUEST',
+    payload: { recipient },
+  };
+}
+export function addNewRecipientSuccess() {
+  return {
+    type: '@recipient/ADDNEW_RECIPIENT_SUCCESS',
+  };
+}
+export function loadeditRecipientrRequest(recipient) {
+  return {
+    type: '@recipient/EDIT_LOAD_RECIPIENT_REQUEST',
+    payload: { recipient },
+  };
+}
+export function loadeditRecipientSuccess() {
+  return {
+    type: '@recipient/EDIT_LOAD_RECIPIENT_SUCCESS',
+  };
+}
+export function editRecipientRequest(recipient) {
+  return {
+    type: '@recipient/EDIT_RECIPIENT_REQUEST',
+    payload: { recipient },
+  };
+}
+export function editRecipientSuccess() {
+  return {
+    type: '@recipient/EDIT_RECIPIENT_SUCCESS',
+  };
+}

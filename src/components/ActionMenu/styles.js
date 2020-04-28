@@ -33,7 +33,7 @@ export const MoreOptions = styled.div`
     height: 0;
     border-left: 8px solid transparent;
     border-right: 8px solid transparent;
-    border-bottom: 8px solid #fff;
+    border-bottom: 8px solid #eee;
   }
 
   div {

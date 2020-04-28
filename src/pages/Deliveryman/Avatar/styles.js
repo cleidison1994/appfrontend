@@ -8,7 +8,7 @@ export const Container = styled.div`
     cursor: pointer;
 
     &:hover {
-      opacity: 0.7;
+      opacity: 0.8;
     }
 
     img {
@@ -16,7 +16,7 @@ export const Container = styled.div`
       width: 188px;
       border-radius: 50%;
       border: 5px thick #333;
-      background: #999;
+      background: #fff;
     }
 
     input {

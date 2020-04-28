@@ -80,7 +80,8 @@ export const ContentList = styled.table`
       align-items: center;
 
       img {
-        max-width: 45px;
+        width: 50px;
+        height: 50px;
         border-radius: 50%;
         margin-right: 5px;
       }

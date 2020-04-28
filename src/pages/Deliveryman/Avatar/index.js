@@ -1,13 +1,17 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { useField } from '@rocketseat/unform';
+import { useDispatch } from 'react-redux';
+import { useField } from '@unform/core';
 import api from '~/services/api';
+import { avatarDeliveryManRequest } from '~/store/modules/deliveryman/actions';
 import previewAvatar from '~/assets/avatar.png';
 import { Container } from './styles';
 
 export default function Avatar() {
-  const { defaultValue, registerField } = useField('avatar');
+  const dispatch = useDispatch();
+  const { defaultValue, registerField } = useField('deliveryman_avatar');
 
   const [file, setFile] = useState(defaultValue && defaultValue.id);
+
   const [preview, setPreview] = useState(defaultValue && defaultValue.url);
 
   const ref = useRef();
@@ -27,6 +31,7 @@ export default function Avatar() {
     data.append('file', e.target.files[0]);
     const response = await api.post('files', data);
     const { id, url } = response.data;
+    dispatch(avatarDeliveryManRequest(response.data));
 
     setFile(id);
     setPreview(url);

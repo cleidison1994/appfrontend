@@ -58,7 +58,12 @@ export function editDeliverySuccess(delivery) {
 }
 export function deleteDeliveryRequest(delivery) {
   return {
-    type: '@delivery/DELETE_DELIVERY',
+    type: '@delivery/DELETE_DELIVERY_REQUEST',
     payload: { delivery },
+  };
+}
+export function deleteDeliverySuccess() {
+  return {
+    type: '@delivery/DELETE_DELIVERY_SUCCESS',
   };
 }
