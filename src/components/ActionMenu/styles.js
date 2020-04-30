@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 
 export const Container = styled.div`
+  width: 100%;
   position: relative;
 `;
 
@@ -48,7 +49,6 @@ export const MoreOptions = styled.div`
       background: none;
       display: flex;
       align-items: center;
-
       svg {
         margin-right: 5px;
       }

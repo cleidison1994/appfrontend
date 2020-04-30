@@ -167,6 +167,38 @@ export function OptionsRecipient({ recipient }) {
   );
 }
 
+export function OptionsProblem({ problem }) {
+  const [visibility, setVisible] = useState(false);
+  const dispatch = useDispatch();
+
+  function handleToogleVisible() {
+    setVisible(!visibility);
+  }
+  function handleLoadEdit() {}
+
+  return (
+    <Container>
+      <Badge onClick={handleToogleVisible}>
+        <MdMoreHoriz color="#333" size={26} />
+      </Badge>
+      <MoreOptions visibility={visibility}>
+        <div>
+          <button type="button" onClick={handleLoadEdit}>
+            <MdVisibility size={16} color="#4D85EE" />
+            <span>Visualizar</span>
+          </button>
+        </div>
+        <div>
+          <button type="button" onClick={() => {}}>
+            <MdDeleteForever size={16} color="#DE3B3B" />
+            <span>Cancelar</span>
+          </button>
+        </div>
+      </MoreOptions>
+    </Container>
+  );
+}
+
 OptionsDelivery.propTypes = {
   deliveries: PropTypes.shape({
     id: PropTypes.number,
@@ -180,6 +212,11 @@ OptionsDeliveryMan.propTypes = {
 
 OptionsRecipient.propTypes = {
   recipient: PropTypes.shape({
+    id: PropTypes.number,
+  }).isRequired,
+};
+OptionsProblem.propTypes = {
+  problem: PropTypes.shape({
     id: PropTypes.number,
   }).isRequired,
 };
