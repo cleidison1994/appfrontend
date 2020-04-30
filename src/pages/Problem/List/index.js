@@ -20,13 +20,8 @@ export default function List() {
         <ContentList>
           <thead>
             <tr>
-              <th>ID</th>
-              <th>PRODUTO</th>
-              <th>DESTINATÁRIO</th>
-              <th>ENTREGADOR</th>
-              <th>CIDADE</th>
-              <th>ESTADO</th>
-              <th>STATUS</th>
+              <th>ENCOMENDA</th>
+              <th>PROBLEMA</th>
               <th>AÇÕES</th>
             </tr>
           </thead>
@@ -34,19 +29,6 @@ export default function List() {
             <tr>
               <td>2</td>
               <td>teste teste teste tese</td>
-              <td>
-                <div>
-                  <img
-                    src="https://api.adorable.io/avatars/50/abott@adorable.png"
-                    alt="imagem"
-                  />
-                  <span>Nome do entregador</span>
-                </div>
-              </td>
-              <td>teste</td>
-              <td>teste</td>
-              <td>teste</td>
-              <td>teste</td>
               <td>teste</td>
             </tr>
           </tbody>

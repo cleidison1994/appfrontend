@@ -27,8 +27,6 @@ export default function FormRecipient() {
       await schema.validate(data, {
         abortEarly: false,
       });
-      // Validation passed
-      console.tron.log(data);
       dispatch(addNewRecipientRequest(data));
     } catch (err) {
       const validationErrors = {};

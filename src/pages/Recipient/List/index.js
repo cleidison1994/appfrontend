@@ -24,7 +24,7 @@ export default function List() {
           <form>
             <MdSearch size={25} color="#333" />
             <input
-              placeholder="Buscar por encomendas"
+              placeholder="Buscar por destinatário"
               onChange={(e) => setTextSearch(e.target.value)}
               value={textsearch}
             />
@@ -50,8 +50,8 @@ export default function List() {
                   <td>{recipients.id}</td>
                   <td>{recipients.name}</td>
                   <td>
-                    {recipients.street} , {recipients.zip_code} ,
-                    {recipients.city} - {recipients.state}
+                    {recipients.street}, {recipients.zip_code},{' '}
+                    {recipients.city}- {recipients.state}
                   </td>
                   <td>
                     <OptionsRecipient recipient={recipients} />

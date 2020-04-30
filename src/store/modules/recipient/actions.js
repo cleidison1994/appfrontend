@@ -5,6 +5,12 @@ export function failureRecipient(message) {
   };
 }
 
+export function refreshRecipient() {
+  return {
+    type: '@recipient/REFRESH_RECIPIENT',
+  };
+}
+
 export function loadRecipientRequest(textsearch) {
   return {
     type: '@recipient/LOAD_RECIPIENT_REQUEST',
@@ -48,5 +54,17 @@ export function editRecipientRequest(recipient) {
 export function editRecipientSuccess() {
   return {
     type: '@recipient/EDIT_RECIPIENT_SUCCESS',
+  };
+}
+
+export function deletetRecipientRequest(recipient) {
+  return {
+    type: '@recipient/DELETE_RECIPIENT_REQUEST',
+    payload: { recipient },
+  };
+}
+export function deleteRecipientSuccess() {
+  return {
+    type: '@recipient/DELETE_RECIPIENT_SUCCESS',
   };
 }

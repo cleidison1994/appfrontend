@@ -21,7 +21,10 @@ import {
   DeleteDeliveryManRequest,
 } from '~/store/modules/deliveryman/actions';
 
-import { loadeditRecipientrRequest } from '~/store/modules/recipient/actions';
+import {
+  loadeditRecipientrRequest,
+  deletetRecipientRequest,
+} from '~/store/modules/recipient/actions';
 
 export function OptionsDelivery({ deliveries }) {
   const dispatch = useDispatch();
@@ -138,6 +141,7 @@ export function OptionsRecipient({ recipient }) {
       'Você realmente deseja deletar este endereço?'
     );
     if (verify) {
+      dispatch(deletetRecipientRequest(id));
     }
   }
   return (

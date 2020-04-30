@@ -8,6 +8,8 @@ import {
   addNewRecipientSuccess,
   loadeditRecipientSuccess,
   editRecipientSuccess,
+  deleteRecipientSuccess,
+  refreshRecipient,
   failureRecipient,
 } from './actions';
 
@@ -19,6 +21,19 @@ export function* loadRecipients({ payload }) {
         textsearch,
       },
     });
+
+    if (response.data) {
+      yield put(loadRecipientSuccess(response.data));
+    }
+  } catch (error) {
+    toast.error(`Ocorreu um erro ao obter os dados`);
+    yield put(failureRecipient(error.message));
+  }
+}
+
+export function* RefreshRecipients() {
+  try {
+    const response = yield call(api.get, 'recipients');
 
     if (response.data) {
       yield put(loadRecipientSuccess(response.data));
@@ -58,17 +73,34 @@ export function* loadeditRecipient({ payload }) {
 
 export function* editRecipient({ payload }) {
   try {
-    const { recipient } = payload;
+    const { complement, ...rest } = payload.recipient;
+    const data = Object.assign(rest, complement ? { complement } : {});
 
-    console.tron.log(recipient);
-    // const response = yield call(api.get, `recipients/${id}`, data);
+    const response = yield call(api.put, `recipients/${rest.id}`, data);
 
-    // if (response.data) {
-    yield put(editRecipientSuccess());
-    // }
+    if (response.data) {
+      yield put(editRecipientSuccess());
+      toast.success('Destinatário atualizado!');
+      history.push('/recipient');
+    }
   } catch (error) {
     yield put(failureRecipient(error.message));
     toast.error('Erro ao atualizar dados!');
+  }
+}
+export function* deleteRecipient({ payload }) {
+  try {
+    const { recipient } = payload;
+
+    const response = yield call(api.delete, `recipients/${recipient}`);
+    if (response.data) {
+      yield put(deleteRecipientSuccess());
+      yield put(refreshRecipient());
+      toast.success('Destinatário deletado');
+    }
+  } catch (error) {
+    put(failureRecipient(error.message));
+    toast.error(`Falha ao deletar ${error.message}`);
   }
 }
 
@@ -77,4 +109,6 @@ export default all([
   takeLatest('@recipient/ADDNEW_RECIPIENT_REQUEST', addRecipient),
   takeLatest('@recipient/EDIT_LOAD_RECIPIENT_REQUEST', loadeditRecipient),
   takeLatest('@recipient/EDIT_RECIPIENT_REQUEST', editRecipient),
+  takeLatest('@recipient/DELETE_RECIPIENT_REQUEST', deleteRecipient),
+  takeLatest('@recipient/REFRESH_RECIPIENT', RefreshRecipients),
 ]);

@@ -41,7 +41,14 @@ export default function recipient(state = INITIAL_STATE, action) {
         );
         break;
       }
+      case '@recipient/EDIT_RECIPIENT_REQUEST': {
+        draft.loading = true;
+        break;
+      }
       case '@recipient/EDIT_RECIPIENT_SUCCESS': {
+        draft.recipientEdit = null;
+        draft.recipientId = null;
+        draft.loading = false;
         break;
       }
       default:
