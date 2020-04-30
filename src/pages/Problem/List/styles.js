@@ -87,18 +87,18 @@ export const ContentList = styled.table`
     }
   }
 `;
-export const FadeDelivery = styled.div`
+export const Fade = styled.div`
   position: absolute;
   display: flex;
   top: 0;
   z-index: 1;
-  width: 100vmax;
-  height: 100vmax;
+  width: 100vw;
+  height: 100vh;
   background: rgba(0, 0, 0, 0.7);
   display: ${(props) => (props.visible ? 'flex' : 'none')} !important;
   justify-content: center;
 `;
-export const DetailsDelivery = styled.div`
+export const DetailsFade = styled.div`
   margin-top: 200px;
   width: 500px;
   height: 400px;
@@ -106,7 +106,6 @@ export const DetailsDelivery = styled.div`
   border-radius: 5px;
   display: flex;
   padding: 20px;
-  justify-content: space-between;
   flex-direction: column;
 
   div {

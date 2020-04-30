@@ -1,6 +1,7 @@
-export function failureProblem() {
+export function failureProblem(message) {
   return {
     type: '@problem/FAILURE_PROBLEM',
+    payload: { message },
   };
 }
 
@@ -39,9 +40,19 @@ export function cancelDeliveryRequest(delivery) {
     payload: { delivery },
   };
 }
-export function cancelDeliverySuccess(delivery) {
+export function cancelDeliverySuccess() {
   return {
     type: '@problem/CANCEL_DELIVERY_SUCCESS',
-    payload: { delivery },
+  };
+}
+export function loadDetailsProblemRequest(delivery_id) {
+  return {
+    type: '@problem/LOAD_DETAILS_PROBLEM_REQUEST',
+    payload: { delivery_id },
+  };
+}
+export function loadDetailsProblemSucces() {
+  return {
+    type: '@problem/LOAD_DETAILS_PROBLEM_SUCCESS',
   };
 }

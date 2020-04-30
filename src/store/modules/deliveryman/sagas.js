@@ -96,7 +96,9 @@ export function* deleteDeliveryMan({ payload }) {
     }
   } catch (error) {
     yield put(failureDeliveryman());
-    toast.success('Erro ao deletar!');
+    toast.error(
+      `Falha ao deletar!. verfique se este entregador está vinculado á uma entrega`
+    );
   }
 }
 

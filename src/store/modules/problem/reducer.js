@@ -28,6 +28,18 @@ export default function problem(state = INITIAL_STATE, action) {
         draft.delivery = draft.problems.find((p) => p.id === draft.deliveryId);
         break;
       }
+      case '@problem/LOAD_DETAILS_PROBLEM_REQUEST': {
+        draft.deliveryId = null;
+        draft.deliveryId = action.payload.delivery_id;
+        break;
+      }
+      case '@problem/LOAD_DETAILS_PROBLEM_SUCCESS': {
+        draft.delivery = draft.problems.find(
+          (d) => d.delivery_problem.id === draft.deliveryId
+        );
+        draft.fadebord = true;
+        break;
+      }
       default:
     }
   });

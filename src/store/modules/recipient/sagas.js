@@ -100,7 +100,9 @@ export function* deleteRecipient({ payload }) {
     }
   } catch (error) {
     put(failureRecipient(error.message));
-    toast.error(`Falha ao deletar ${error.message}`);
+    toast.error(
+      `Falha ao deletar!. verfique se este endereco está vinculado á uma entrega`
+    );
   }
 }
 

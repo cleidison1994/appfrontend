@@ -9,14 +9,16 @@ import {
   Content,
   ContentHeader,
   ContentList,
-  FadeDelivery,
-  DetailsDelivery,
+  Fade,
+  DetailsFade,
 } from './styles';
 
 export default function List() {
   const dispatch = useDispatch();
   const problemsData = useSelector((state) => state.problem.problems);
-
+  const detailsProblem = useSelector((state) => state.problem.delivery);
+  const visible = useSelector((state) => state.problem.fadebord);
+  console.tron.log(detailsProblem);
   useEffect(() => {
     async function loadProblemsDelivery() {
       dispatch(loadProblemDeliveryRequest());
@@ -29,16 +31,6 @@ export default function List() {
       <Container>
         <Content>
           <span>Gerenciando problemas</span>
-          <ContentHeader>
-            <form>
-              <MdSearch size={25} color="#333" />
-              <input placeholder="Buscar por encomendas" />
-            </form>
-            <button type="button">
-              <MdAdd size={20} color="#fff" />
-              <span>CADASTRAR</span>
-            </button>
-          </ContentHeader>
           <ContentList>
             <thead>
               <tr>
@@ -50,11 +42,11 @@ export default function List() {
             <tbody>
               {problemsData ? (
                 problemsData.map((problem) => (
-                  <tr key={problem.problem.id}>
-                    <td>{problem.problem.id}</td>
+                  <tr key={problem.delivery_problem.id}>
+                    <td>{problem.delivery_problem.id}</td>
                     <td>{problem.description}</td>
                     <td>
-                      <OptionsProblem />
+                      <OptionsProblem problem={problem} />
                     </td>
                   </tr>
                 ))
@@ -65,13 +57,20 @@ export default function List() {
           </ContentList>
         </Content>
       </Container>
-      <FadeDelivery visible={false}>
-        <DetailsDelivery>
+      <Fade visible={visible}>
+        <DetailsFade>
           <div>
-            <strong>Informações sobre a encomenda</strong>
+            <strong>Informações sobre o problema da encomenda</strong>
           </div>
-        </DetailsDelivery>
-      </FadeDelivery>
+          <div>
+            <span>Problemas :</span>
+            <p>{detailsProblem ? detailsProblem.description : ''}</p>
+            <span>
+              Data: {detailsProblem ? detailsProblem.createdAt : '00/00/0000'}
+            </span>
+          </div>
+        </DetailsFade>
+      </Fade>
     </>
   );
 }

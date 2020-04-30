@@ -26,7 +26,7 @@ export const Content = styled.div`
       margin-right: 20px;
     }
     a {
-      color: #eee;
+      color: ${darken(0.3, '#ddd')};
       font-weight: bold;
       margin-right: 30px;
       transition: color 0.2s;

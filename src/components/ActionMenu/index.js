@@ -26,6 +26,11 @@ import {
   deletetRecipientRequest,
 } from '~/store/modules/recipient/actions';
 
+import {
+  loadDetailsProblemRequest,
+  cancelDeliveryRequest,
+} from '~/store/modules/problem/actions';
+
 export function OptionsDelivery({ deliveries }) {
   const dispatch = useDispatch();
   const [visibility, setVisible] = useState(false);
@@ -170,11 +175,17 @@ export function OptionsRecipient({ recipient }) {
 export function OptionsProblem({ problem }) {
   const [visibility, setVisible] = useState(false);
   const dispatch = useDispatch();
+  const { delivery_problem } = problem;
 
   function handleToogleVisible() {
     setVisible(!visibility);
   }
-  function handleLoadEdit() {}
+  function handleLoadDetails() {
+    dispatch(loadDetailsProblemRequest(delivery_problem.id));
+  }
+  function handleCancel() {
+    dispatch(cancelDeliveryRequest(delivery_problem.id));
+  }
 
   return (
     <Container>
@@ -183,13 +194,13 @@ export function OptionsProblem({ problem }) {
       </Badge>
       <MoreOptions visibility={visibility}>
         <div>
-          <button type="button" onClick={handleLoadEdit}>
+          <button type="button" onClick={handleLoadDetails}>
             <MdVisibility size={16} color="#4D85EE" />
             <span>Visualizar</span>
           </button>
         </div>
         <div>
-          <button type="button" onClick={() => {}}>
+          <button type="button" onClick={handleCancel}>
             <MdDeleteForever size={16} color="#DE3B3B" />
             <span>Cancelar</span>
           </button>
@@ -217,6 +228,7 @@ OptionsRecipient.propTypes = {
 };
 OptionsProblem.propTypes = {
   problem: PropTypes.shape({
+    delivery_problem: PropTypes.object,
     id: PropTypes.number,
   }).isRequired,
 };
