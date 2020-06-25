@@ -12,8 +12,8 @@ import {
   ContentHeader,
   ContentList,
   FadeDelivery,
-  DetailsDelivery,
   ButtonClose,
+  DetailsDelivery,
   TableLoading,
 } from './styles';
 
