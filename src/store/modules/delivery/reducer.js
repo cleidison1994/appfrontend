@@ -45,6 +45,10 @@ export default function delivery(state = INITIAL_STATE, action) {
         draft.fadebord = false;
         break;
       }
+      case '@delivery/FADEBOARD_SUCCESS': {
+        draft.fadebord = false;
+        break;
+      }
       case '@delivery/EDIT_DELIVERY_REQUEST': {
         draft.delivery_id = action.payload.delivery;
         break;

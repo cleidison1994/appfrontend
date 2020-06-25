@@ -37,6 +37,18 @@ export function detailsDeliveryRequest(delivery_id) {
     payload: { delivery_id },
   };
 }
+export function fadeboardDeliveryRequest(delivery) {
+  return {
+    type: '@delivery/FADEBOARD_REQUEST',
+    payload: { delivery },
+  };
+}
+export function fadeboardDeliverySuccess(delivery) {
+  return {
+    type: '@delivery/FADEBOARD_SUCCESS',
+    payload: { delivery },
+  };
+}
 export function detailsDeliverySuccess(delivery) {
   return {
     type: '@delivery/DETAILS_DELIVERY_SUCCESS',

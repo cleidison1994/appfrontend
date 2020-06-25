@@ -91,16 +91,38 @@ export const ContentList = styled.table`
 export const FadeDelivery = styled.div`
   position: absolute;
   display: flex;
+  flex-direction: column;
+  align-items: center;
   top: 0;
   z-index: 1;
-  width: 100vmax;
-  height: 100vmax;
+  width: 100vw;
+  height: 100vh;
   background: rgba(0, 0, 0, 0.7);
   display: ${(props) => (props.visible ? 'flex' : 'none')} !important;
   justify-content: center;
 `;
+export const ButtonClose = styled.div`
+  padding: 20px;
+  width: 50px;
+  height: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 25px;
+  transition: background 0.2s;
+
+  &:hover {
+    background: #333;
+  }
+
+  button {
+    background: none;
+    border: 0;
+  }
+`;
+
 export const DetailsDelivery = styled.div`
-  margin-top: 200px;
+  margin-top: 100px;
   width: 500px;
   height: 400px;
   background: #fff;
@@ -140,5 +162,15 @@ export const DetailsDelivery = styled.div`
     align-self: center;
     height: 130px;
     width: 360px;
+  }
+`;
+export const TableLoading = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  span {
+    color: #7159c1;
+    font-size: 20px;
   }
 `;

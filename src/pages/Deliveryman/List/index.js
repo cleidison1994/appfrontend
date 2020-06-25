@@ -24,7 +24,7 @@ export default function List() {
           <form>
             <MdSearch size={25} color="#333" />
             <input
-              placeholder="Buscar por encomendas"
+              placeholder="Buscar por entregadores"
               onChange={(e) => setTextSearch(e.target.value)}
             />
           </form>

@@ -1,17 +1,9 @@
 /* eslint-disable no-nested-ternary */
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { MdSearch, MdAdd } from 'react-icons/md';
 import { loadProblemDeliveryRequest } from '~/store/modules/problem/actions';
 import { OptionsProblem } from '~/components/ActionMenu';
-import {
-  Container,
-  Content,
-  ContentHeader,
-  ContentList,
-  Fade,
-  DetailsFade,
-} from './styles';
+import { Container, Content, ContentList, Fade, DetailsFade } from './styles';
 
 export default function List() {
   const dispatch = useDispatch();

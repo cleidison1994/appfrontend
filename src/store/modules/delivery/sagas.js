@@ -12,6 +12,7 @@ import {
   detailsDeliverySuccess,
   deleteDeliverySuccess,
   editDeliverySuccess,
+  fadeboardDeliverySuccess,
 } from './actions';
 
 export function* loadDeliveries({ payload }) {
@@ -101,11 +102,18 @@ export function* deleteDelivery({ payload }) {
     toast.error(`Erro ao remover encomenda !`);
   }
 }
-
+export function* closeFadeboard() {
+  try {
+    yield put(fadeboardDeliverySuccess());
+  } catch (err) {
+    toast.error(err);
+  }
+}
 export default all([
   takeLatest('@delivery/NEW_DELIVERY_REQUEST', newAddDelivery),
   takeLatest('@delivery/LOAD_REQUEST', loadDeliveries),
   takeLatest('@delivery/SET_DELIVERYID_REQUEST', detailsDelivery),
   takeLatest('@delivery/DELETE_DELIVERY_REQUEST', deleteDelivery),
   takeLatest('@delivery/EDIT_DELIVERY_REQUEST', editDelivery),
+  takeLatest('@delivery/FADEBOARD_REQUEST', closeFadeboard),
 ]);

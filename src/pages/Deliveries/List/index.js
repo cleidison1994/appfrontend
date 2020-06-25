@@ -1,7 +1,7 @@
 /* eslint-disable no-nested-ternary */
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { MdSearch, MdAdd } from 'react-icons/md';
+import { MdSearch, MdAdd, MdClose } from 'react-icons/md';
 import { format, parseISO } from 'date-fns';
 import pt from 'date-fns/locale/pt';
 import history from '~/services/history';
@@ -13,9 +13,14 @@ import {
   ContentList,
   FadeDelivery,
   DetailsDelivery,
+  ButtonClose,
+  TableLoading,
 } from './styles';
 
-import { loadDeliveryRequest } from '~/store/modules/delivery/actions';
+import {
+  loadDeliveryRequest,
+  fadeboardDeliveryRequest,
+} from '~/store/modules/delivery/actions';
 import { OptionsDelivery } from '~/components/ActionMenu';
 import {
   ActionStarted,
@@ -62,7 +67,9 @@ export default function List() {
             </button>
           </ContentHeader>
           {loading ? (
-            <span>CARREGANDO</span>
+            <TableLoading>
+              <span>CARREGANDO...</span>
+            </TableLoading>
           ) : (
             <ContentList>
               <thead>
@@ -131,6 +138,14 @@ export default function List() {
         </Content>
       </Container>
       <FadeDelivery visible={fadebord}>
+        <ButtonClose>
+          <button
+            type="button"
+            onClick={() => dispatch(fadeboardDeliveryRequest())}
+          >
+            <MdClose size={30} color="#fff" />
+          </button>
+        </ButtonClose>
         <DetailsDelivery>
           <div>
             <strong>Informações sobre a encomenda</strong>
